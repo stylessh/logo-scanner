@@ -2,7 +2,8 @@ import { useEffect, useRef } from "react";
 import Webcam from "react-webcam";
 
 const videoConstraints = {
-  facingMode: "user",
+  facingMode:
+    process.env.NODE_ENV === "development" ? "user" : { exact: "environment" },
 };
 
 const Index = () => {
