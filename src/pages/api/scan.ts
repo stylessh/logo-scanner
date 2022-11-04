@@ -1,23 +1,33 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { PNG } from "pngjs";
 import fs from "fs";
-import imageMatch from "matches-subimage";
+import deepai from "deepai";
 
-const baseImage = PNG.sync.read(fs.readFileSync("public/img-1.png"));
+deepai.setApiKey(process.env.DEEPAI_API_KEY);
 
 type Data = {
   message: string;
 };
 
-export default function handler(
+export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
   if (req.method === "POST") {
     // get base64 string from request body
-    const { image } = req.body;
+    const { image }: { image: string } = req.body;
 
-    const match = imageMatch(baseImage, baseImage, { threshold: 0.5 });
+    const baseImage = fs.readFileSync("public/img-1.png");
+
+    // Buffer to base64
+    const base64Image = baseImage.toString("base64");
+
+    // base image
+    var resp = await deepai.callStandardApi("image-similarity", {
+      image1: base64Image,
+      image2: image,
+    });
+
+    console.log(resp);
 
     res.status(200).json({ message: "John Doe" });
   }

@@ -40,13 +40,15 @@ const Index = () => {
   };
 
   return (
-    <Webcam
-      ref={webcamRef}
-      className="webcam"
-      screenshotFormat="image/png"
-      videoConstraints={videoConstraints}
-      screenshotQuality={0.6}
-    />
+    <>
+      <Webcam
+        ref={webcamRef}
+        className="webcam"
+        screenshotFormat="image/png"
+        videoConstraints={videoConstraints}
+        screenshotQuality={0.6}
+      />
+    </>
   );
 };
 

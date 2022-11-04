@@ -5,6 +5,10 @@
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
 
+body {
+  overscroll-behavior: none;
+}
+
 .webcam {
   width: 100vw;
   height: 100vh;

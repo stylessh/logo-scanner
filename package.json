@@ -12,6 +12,7 @@
     "@types/node": "18.11.9",
     "@types/react": "18.0.24",
     "@types/react-dom": "18.0.8",
+    "deepai": "^1.0.21",
     "eslint": "8.26.0",
     "eslint-config-next": "13.0.1",
     "matches-subimage": "^1.0.1",
@@ -23,6 +24,7 @@
     "typescript": "4.8.4"
   },
   "devDependencies": {
+    "@types/deepai": "^1.0.0",
     "@types/pngjs": "^6.0.1"
   }
 }
