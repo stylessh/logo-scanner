@@ -1,5 +1,16 @@
 import { useState, useRef } from "react";
+import deepai from "deepai";
+
 import Webcam from "react-webcam";
+
+deepai.setApiKey("4ee9f392-af6a-48b7-8073-8b40946df188");
+
+interface IScan {
+  id: string;
+  output: {
+    distance: number;
+  };
+}
 
 const videoConstraints = {
   facingMode:
@@ -16,21 +27,32 @@ const Index = () => {
 
     const imageSrc = webcamRef.current?.getScreenshot();
 
-    const payload = {
-      image: imageSrc,
-    };
+    const res = await (await fetch("/img-1.png")).arrayBuffer();
+    const baseImage = Buffer.from(res).toString("base64");
 
-    const res = await fetch("/api/scan", {
-      method: "POST",
-      body: JSON.stringify(payload),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    // base image
+    const resp = (await deepai.callStandardApi("image-similarity", {
+      image1: baseImage,
+      image2: imageSrc,
+    })) as IScan;
 
-    const data = await res.json();
+    console.log(resp);
 
-    setDistance(data.distance);
+    // const payload = {
+    //   image: imageSrc,
+    // };
+
+    // const res = await fetch("/api/scan", {
+    //   method: "POST",
+    //   body: JSON.stringify(payload),
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    // });
+
+    // const data = await res.json();
+
+    setDistance(resp.output.distance);
 
     setCapturing(false);
   };
