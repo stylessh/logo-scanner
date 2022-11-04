@@ -5,8 +5,15 @@ import deepai from "deepai";
 deepai.setApiKey(process.env.DEEPAI_API_KEY);
 
 type Data = {
-  message: string;
+  distance: number;
 };
+
+interface IScan {
+  id: string;
+  output: {
+    distance: number;
+  };
+}
 
 export default async function handler(
   req: NextApiRequest,
@@ -22,13 +29,13 @@ export default async function handler(
     const base64Image = baseImage.toString("base64");
 
     // base image
-    var resp = await deepai.callStandardApi("image-similarity", {
+    const resp = (await deepai.callStandardApi("image-similarity", {
       image1: base64Image,
       image2: image,
-    });
+    })) as IScan;
 
     console.log(resp);
 
-    res.status(200).json({ message: "John Doe" });
+    res.status(200).json({ distance: resp.output.distance });
   }
 }

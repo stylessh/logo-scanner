@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import Webcam from "react-webcam";
 
 const videoConstraints = {
@@ -8,18 +8,12 @@ const videoConstraints = {
 
 const Index = () => {
   const webcamRef = useRef<any>(null);
-
-  useEffect(() => {
-    if (webcamRef.current) {
-      const interval = setInterval(() => {
-        capture();
-      }, 5000);
-
-      return () => clearInterval(interval);
-    }
-  }, []);
+  const [capturing, setCapturing] = useState(false);
+  const [distance, setDistance] = useState<number>(0);
 
   const capture = async () => {
+    setCapturing(true);
+
     const imageSrc = webcamRef.current?.getScreenshot();
 
     const payload = {
@@ -36,7 +30,9 @@ const Index = () => {
 
     const data = await res.json();
 
-    console.log(data);
+    setDistance(data.distance);
+
+    setCapturing(false);
   };
 
   return (
@@ -48,6 +44,14 @@ const Index = () => {
         videoConstraints={videoConstraints}
         screenshotQuality={0.6}
       />
+
+      {/* Scan Button */}
+      <button onClick={capture} className="scan-button" disabled={capturing}>
+        Scan
+      </button>
+
+      {/* Distance */}
+      {distance > 0 && <div className="distance">{distance}</div>}
     </>
   );
 };

@@ -15,6 +15,7 @@
     "deepai": "^1.0.21",
     "eslint": "8.26.0",
     "eslint-config-next": "13.0.1",
+    "form-data": "^4.0.0",
     "matches-subimage": "^1.0.1",
     "next": "13.0.1",
     "pngjs": "^6.0.0",
