@@ -9,5 +9,16 @@
   width: 100vw;
   height: 100vh;
 
+  /* mobile aspect */
+  object-fit: cover;
+
   vertical-align: top;
+}
+
+@media (min-width: 768px) {
+  /* desktop aspect */
+
+  .webcam {
+    object-fit: contain;
+  }
 }

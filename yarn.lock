@@ -1192,6 +1192,11 @@ lru-cache@^6.0.0:
   dependencies:
     yallist "^4.0.0"
 
+matches-subimage@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/matches-subimage/-/matches-subimage-1.0.1.tgz#ccb50ccf0dc5d89ce2b2eaad0e8c292112c29b22"
+  integrity sha512-Ae+7tCPkahWM87WUQ6H5cvdQnOyHSCwEvQmo7Ii71o3uwwnM23BKZHTZwLCbuf0vJVc/K/QXzZslC3d3rbsn1g==
+
 merge2@^1.3.0, merge2@^1.4.1:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/merge2/-/merge2-1.4.1.tgz#4368892f885e907455a6fd7dc55c0c9d404990ae"
@@ -1402,6 +1407,11 @@ picomatch@^2.3.1:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/picomatch/-/picomatch-2.3.1.tgz#3ba3833733646d9d3e4995946c1365a67fb07a42"
   integrity sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==
+
+pngjs@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/pngjs/-/pngjs-6.0.0.tgz#ca9e5d2aa48db0228a52c419c3308e87720da821"
+  integrity sha512-TRzzuFRRmEoSW/p1KVAmiOgPco2Irlah+bGFCeNfJXxxYGwSw7YwAOAcd7X28K/m5bjBWKsC29KyoMfHbypayg==
 
 postcss@8.4.14:
   version "8.4.14"
