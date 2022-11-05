@@ -7,6 +7,8 @@ import Webcam from "react-webcam";
 deepai.setApiKey(process.env.NEXT_PUBLIC_DEEPAI_API_KEY);
 
 const videoConstraints = {
+  width: 400,
+  height: 400,
   facingMode:
     process.env.NODE_ENV === "development" ? "user" : { exact: "environment" },
 };
@@ -24,7 +26,16 @@ const Index = () => {
     setResult(null);
     setError(null);
 
-    const imageSrc = webcamRef.current?.getScreenshot();
+    const imageSrc = webcamRef.current?.getScreenshot({
+      width: 400,
+      height: 400,
+    });
+
+    // download
+    const a = document.createElement("a");
+    a.href = imageSrc;
+    a.download = `image_${Date.now()}.png`;
+    a.click();
 
     // compare image to each logo
     const scans: IResult[] = await Promise.all(
