@@ -26,12 +26,6 @@ const Index = () => {
 
     const imageSrc = webcamRef.current?.getScreenshot();
 
-    // Download image (Base64)
-    const a = document.createElement("a");
-    a.href = imageSrc;
-    a.download = "image.png";
-    a.click();
-
     // compare image to each logo
     const scans: IResult[] = await Promise.all(
       logos.map(async (logo) => {
