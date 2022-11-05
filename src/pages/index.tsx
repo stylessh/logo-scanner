@@ -54,7 +54,7 @@ const Index = () => {
     console.log(closest);
 
     // if the closest match is not enough of a match, return an error
-    if (closest.output.distance > 25) {
+    if (closest.output.distance >= 28) {
       setError("No match found.");
       setResult(null);
     } else {
