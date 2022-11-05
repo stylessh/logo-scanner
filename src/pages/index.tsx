@@ -1,58 +1,66 @@
 import { useState, useRef } from "react";
 import deepai from "deepai";
+import Result from "components/Result";
 
 import Webcam from "react-webcam";
 
-deepai.setApiKey("4ee9f392-af6a-48b7-8073-8b40946df188");
-
-interface IScan {
-  id: string;
-  output: {
-    distance: number;
-  };
-}
+deepai.setApiKey(process.env.NEXT_PUBLIC_DEEPAI_API_KEY);
 
 const videoConstraints = {
   facingMode:
     process.env.NODE_ENV === "development" ? "user" : { exact: "environment" },
 };
 
+import logos from "logos.json";
+
 const Index = () => {
   const webcamRef = useRef<any>(null);
   const [capturing, setCapturing] = useState(false);
-  const [distance, setDistance] = useState<number>(0);
+  const [result, setResult] = useState<IResult | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const capture = async () => {
     setCapturing(true);
+    setResult(null);
+    setError(null);
 
     const imageSrc = webcamRef.current?.getScreenshot();
 
-    const res = await (await fetch("/img-1.png")).arrayBuffer();
-    const baseImage = Buffer.from(res).toString("base64");
+    // compare image to each logo
+    const scans: IResult[] = await Promise.all(
+      logos.map(async (logo) => {
+        const buff = await (await fetch(logo.image)).arrayBuffer();
+        const baseImage = Buffer.from(buff).toString("base64");
 
-    // base image
-    const resp = (await deepai.callStandardApi("image-similarity", {
-      image1: baseImage,
-      image2: imageSrc,
-    })) as IScan;
+        const res = (await deepai.callStandardApi("image-similarity", {
+          image1: imageSrc,
+          image2: baseImage,
+        })) as IScan;
 
-    console.log(resp);
+        return {
+          id: logo.id,
+          name: logo.name,
+          url: logo.url,
+          output: res.output,
+        };
+      })
+    );
 
-    // const payload = {
-    //   image: imageSrc,
-    // };
+    // get the closest match
+    const closest = scans.reduce((prev, current) =>
+      prev.output.distance < current.output.distance ? prev : current
+    );
 
-    // const res = await fetch("/api/scan", {
-    //   method: "POST",
-    //   body: JSON.stringify(payload),
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    // });
+    console.log(closest);
 
-    // const data = await res.json();
-
-    setDistance(resp.output.distance);
+    // if the closest match is not enough of a match, return an error
+    if (closest.output.distance > 25) {
+      setError("No match found.");
+      setResult(null);
+    } else {
+      setError(null);
+      setResult(closest);
+    }
 
     setCapturing(false);
   };
@@ -72,8 +80,11 @@ const Index = () => {
         Scan
       </button>
 
-      {/* Distance */}
-      {distance > 0 && <div className="distance">{distance}</div>}
+      {/* Error */}
+      {error && <p className="error">{error}</p>}
+
+      {/* Result */}
+      {result && <Result result={result} />}
     </>
   );
 };
