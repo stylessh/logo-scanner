@@ -26,6 +26,12 @@ const Index = () => {
 
     const imageSrc = webcamRef.current?.getScreenshot();
 
+    // Download image (Base64)
+    const a = document.createElement("a");
+    a.href = imageSrc;
+    a.download = "image.png";
+    a.click();
+
     // compare image to each logo
     const scans: IResult[] = await Promise.all(
       logos.map(async (logo) => {
@@ -46,15 +52,17 @@ const Index = () => {
       })
     );
 
+    console.log("scans", scans);
+
     // get the closest match
     const closest = scans.reduce((prev, current) =>
       prev.output.distance < current.output.distance ? prev : current
     );
 
-    console.log(closest);
+    console.log("closest", closest);
 
     // if the closest match is not enough of a match, return an error
-    if (closest.output.distance >= 28) {
+    if (closest.output.distance > 30) {
       setError("No match found.");
       setResult(null);
     } else {
