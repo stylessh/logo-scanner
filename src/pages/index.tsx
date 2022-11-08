@@ -27,6 +27,13 @@ const Index = () => {
   const [screenshot, setScreenshot] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
+  const downloadImage = (src: string) => {
+    const a = document.createElement("a");
+    a.href = src;
+    a.download = "image.png";
+    a.click();
+  };
+
   const capture = async () => {
     setCapturing(true);
     setResult(null);
@@ -49,11 +56,10 @@ const Index = () => {
 
     setScreenshot(null);
 
-    // download
-    const a = document.createElement("a");
-    a.href = base64;
-    a.download = `image_${Date.now()}.png`;
-    a.click();
+    // download image on dev
+    if (process.env.NODE_ENV === "development") {
+      downloadImage(base64);
+    }
 
     // compare image to each logo
     const scans: IResult[] = await Promise.all(
