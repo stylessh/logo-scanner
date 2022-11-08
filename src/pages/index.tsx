@@ -9,9 +9,6 @@ import Webcam from "react-webcam";
 deepai.setApiKey(process.env.NEXT_PUBLIC_DEEPAI_API_KEY);
 
 const videoConstraints = {
-  width: 400,
-  height: 400,
-
   facingMode:
     process.env.NODE_ENV === "development" ? "user" : { exact: "environment" },
 };
@@ -41,10 +38,7 @@ const Index = () => {
 
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
-    const imageSrc = webcamRef.current?.getScreenshot({
-      width: 400,
-      height: 400,
-    });
+    const imageSrc = webcamRef.current?.getScreenshot();
 
     setScreenshot(imageSrc);
 
@@ -109,7 +103,7 @@ const Index = () => {
         className={`webcam`}
         screenshotFormat="image/png"
         videoConstraints={videoConstraints}
-        screenshotQuality={0.6}
+        screenshotQuality={0.9}
       />
 
       {/* 400x400 screenshot area */}
