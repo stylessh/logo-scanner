@@ -34,5 +34,10 @@
     "name": "Florida Yachts International",
     "url": "https://fyiyachts.com/",
     "image": "/logos/fyi.jpg"
+  }, {
+    "id": 7,
+    "name": "Planeta Azul",
+    "url": "https://aguaplanetaazul.com/",
+    "image": "/logos/img-2.png"
   }
 ]

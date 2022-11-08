@@ -32,6 +32,8 @@ const Index = () => {
     setResult(null);
     setError(null);
 
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
     const imageSrc = webcamRef.current?.getScreenshot({
       width: 400,
       height: 400,
@@ -40,18 +42,18 @@ const Index = () => {
     setScreenshot(imageSrc);
 
     const base64 = await DomToImage.toPng(screenshotRef.current, {
-      width: 400,
-      height: 400,
-      quality: 0.8,
+      width: isMobile ? 300 : 400,
+      height: isMobile ? 300 : 400,
+      quality: 1,
     });
 
     setScreenshot(null);
 
     // download
-    // const a = document.createElement("a");
-    // a.href = base64;
-    // a.download = `image_${Date.now()}.png`;
-    // a.click();
+    const a = document.createElement("a");
+    a.href = base64;
+    a.download = `image_${Date.now()}.png`;
+    a.click();
 
     // compare image to each logo
     const scans: IResult[] = await Promise.all(
@@ -78,7 +80,7 @@ const Index = () => {
       prev.output.distance < current.output.distance ? prev : current
     );
 
-    // console.log(scans)
+    console.log(scans);
 
     // if the closest match is not enough of a match, return an error
     if (closest.output.distance > 26) {
