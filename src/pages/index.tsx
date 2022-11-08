@@ -42,6 +42,9 @@ const Index = () => {
 
     setScreenshot(imageSrc);
 
+    // wait one second for the image to be taken
+    await new Promise((resolve) => setTimeout(resolve, 500));
+
     const base64 = await DomToImage.toPng(screenshotRef.current, {
       width: isMobile ? 300 : 400,
       height: isMobile ? 300 : 400,
