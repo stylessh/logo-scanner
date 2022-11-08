@@ -86,7 +86,7 @@ const Index = () => {
     console.log(scans);
 
     // if the closest match is not enough of a match, return an error
-    if (closest.output.distance > 26) {
+    if (closest.output.distance > 30) {
       setError("No match found.");
       setResult(null);
     } else {
