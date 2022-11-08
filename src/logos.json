@@ -22,5 +22,17 @@
     "name": "Reposado Patrón",
     "url": "https://www.patrontequila.com/global-es/products/patron-reposado.html",
     "image": "/logos/tequila.png"
+  },
+  {
+    "id": 5,
+    "name": "Prestige Companies",
+    "url": "https://www.prestige-companies.com/",
+    "image": "/logos/prestige.jpg"
+  },
+  {
+    "id": 6,
+    "name": "Florida Yachts International",
+    "url": "https://fyiyachts.com/",
+    "image": "/logos/fyi.jpg"
   }
 ]

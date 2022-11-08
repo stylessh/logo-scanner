@@ -2,6 +2,8 @@ import { useState, useRef } from "react";
 import deepai from "deepai";
 import Result from "components/Result";
 
+import DomToImage from "dom-to-image";
+
 import Webcam from "react-webcam";
 
 deepai.setApiKey(process.env.NEXT_PUBLIC_DEEPAI_API_KEY);
@@ -9,6 +11,7 @@ deepai.setApiKey(process.env.NEXT_PUBLIC_DEEPAI_API_KEY);
 const videoConstraints = {
   width: 400,
   height: 400,
+
   facingMode:
     process.env.NODE_ENV === "development" ? "user" : { exact: "environment" },
 };
@@ -17,8 +20,11 @@ import logos from "logos.json";
 
 const Index = () => {
   const webcamRef = useRef<any>(null);
+  const screenshotRef = useRef<any>(null);
+
   const [capturing, setCapturing] = useState(false);
   const [result, setResult] = useState<IResult | null>(null);
+  const [screenshot, setScreenshot] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const capture = async () => {
@@ -31,9 +37,19 @@ const Index = () => {
       height: 400,
     });
 
+    setScreenshot(imageSrc);
+
+    const base64 = await DomToImage.toPng(screenshotRef.current, {
+      width: 400,
+      height: 400,
+      quality: 0.8,
+    });
+
+    setScreenshot(null);
+
     // download
     // const a = document.createElement("a");
-    // a.href = imageSrc;
+    // a.href = base64;
     // a.download = `image_${Date.now()}.png`;
     // a.click();
 
@@ -44,7 +60,7 @@ const Index = () => {
         const baseImage = Buffer.from(buff).toString("base64");
 
         const res = (await deepai.callStandardApi("image-similarity", {
-          image1: imageSrc,
+          image1: base64,
           image2: baseImage,
         })) as IScan;
 
@@ -62,8 +78,10 @@ const Index = () => {
       prev.output.distance < current.output.distance ? prev : current
     );
 
+    // console.log(scans)
+
     // if the closest match is not enough of a match, return an error
-    if (closest.output.distance > 30) {
+    if (closest.output.distance > 26) {
       setError("No match found.");
       setResult(null);
     } else {
@@ -75,14 +93,24 @@ const Index = () => {
   };
 
   return (
-    <>
+    <main className="wrapper">
       <Webcam
+        width={400}
+        height={400}
         ref={webcamRef}
-        className="webcam"
+        className={`webcam`}
         screenshotFormat="image/png"
         videoConstraints={videoConstraints}
         screenshotQuality={0.6}
       />
+
+      {/* 400x400 screenshot area */}
+      <div
+        className={`screnshot-area ${screenshot ? "has-image" : ""}`}
+        ref={screenshotRef}
+      >
+        {screenshot && <img src={screenshot} className="image" />}
+      </div>
 
       {/* Scan Button */}
       <button onClick={capture} className="scan-button" disabled={capturing}>
@@ -94,7 +122,7 @@ const Index = () => {
 
       {/* Result */}
       {result && <Result result={result} />}
-    </>
+    </main>
   );
 };
 

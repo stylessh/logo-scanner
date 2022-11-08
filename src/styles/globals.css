@@ -9,14 +9,53 @@ body {
   overscroll-behavior: none;
 }
 
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  height: 100vh;
+}
+
 .webcam {
+  position: absolute;
+  inset: 0;
   width: 100vw;
   height: 100vh;
-
   /* mobile aspect */
   object-fit: cover;
-
   vertical-align: top;
+}
+
+.screnshot-area {
+  position: relative;
+  width: 400px;
+  height: 400px;
+  border: 2px dashed #ccc;
+
+  overflow: hidden;
+
+  aspect-ratio: 1/1;
+}
+
+.screnshot-area.has-image {
+  border: none;
+
+  background-position: center center;
+}
+
+.screnshot-area .image {
+  position: absolute;
+  object-fit: cover;
+
+  /* center */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 100vw;
+  height: 100vh;
 }
 
 .scan-button {
@@ -52,7 +91,8 @@ body {
 }
 
 /* distance */
-.result, .error {
+.result,
+.error {
   position: absolute;
   display: flex;
   align-items: center;
@@ -79,4 +119,20 @@ body {
 .result svg {
   width: 1.3rem;
   margin-right: 0.5rem;
+}
+
+@media screen and (max-width: 768px) {
+  .screnshot-area {
+    width: 300px;
+    height: 300px;
+  }
+
+  .scan-button {
+    bottom: 10%;
+  }
+
+  .result,
+  .error {
+    bottom: 20%;
+  }
 }

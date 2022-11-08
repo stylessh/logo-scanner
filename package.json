@@ -13,6 +13,7 @@
     "@types/react": "18.0.24",
     "@types/react-dom": "18.0.8",
     "deepai": "^1.0.21",
+    "dom-to-image": "^2.6.0",
     "eslint": "8.26.0",
     "eslint-config-next": "13.0.1",
     "form-data": "^4.0.0",
@@ -26,6 +27,7 @@
   },
   "devDependencies": {
     "@types/deepai": "^1.0.0",
+    "@types/dom-to-image": "^2.6.4",
     "@types/pngjs": "^6.0.1"
   }
 }
