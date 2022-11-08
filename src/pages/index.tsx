@@ -32,10 +32,10 @@ const Index = () => {
     });
 
     // download
-    const a = document.createElement("a");
-    a.href = imageSrc;
-    a.download = `image_${Date.now()}.png`;
-    a.click();
+    // const a = document.createElement("a");
+    // a.href = imageSrc;
+    // a.download = `image_${Date.now()}.png`;
+    // a.click();
 
     // compare image to each logo
     const scans: IResult[] = await Promise.all(
