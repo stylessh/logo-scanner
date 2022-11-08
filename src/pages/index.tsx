@@ -97,8 +97,6 @@ const Index = () => {
   return (
     <main className="wrapper">
       <Webcam
-        width={400}
-        height={400}
         ref={webcamRef}
         className={`webcam`}
         screenshotFormat="image/png"
