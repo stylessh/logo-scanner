@@ -57,14 +57,10 @@ const Index = () => {
       })
     );
 
-    console.log("scans", scans);
-
     // get the closest match
     const closest = scans.reduce((prev, current) =>
       prev.output.distance < current.output.distance ? prev : current
     );
-
-    console.log("closest", closest);
 
     // if the closest match is not enough of a match, return an error
     if (closest.output.distance > 30) {

@@ -1,26 +1,26 @@
 [
   {
     "id": 1,
-    "name": "McDonalds",
-    "url": "https://www.mcdonalds.com/us/en-us.html",
-    "image": "/logos/img-1.png"
+    "name": "Armani",
+    "url": "https://www.armani.com/es-ar",
+    "image": "/logos/armani.png"
   },
   {
     "id": 2,
-    "name": "Planeta Azul",
-    "url": "https://aguaplanetaazul.com/",
-    "image": "/logos/img-2.png"
+    "name": "Mann Filter",
+    "url": "https://www.mann-filter.com/es-es.html",
+    "image": "/logos/filtro.jpg"
   },
   {
     "id": 3,
-    "name": "Oasis",
-    "url": "https://oasisinet.com/",
-    "image": "/logos/img-3.png"
+    "name": "La Gotita",
+    "url": "https://www.lagotita.com.ar/",
+    "image": "/logos/lagotita.png"
   },
   {
     "id": 4,
-    "name": "Vercel",
-    "url": "https://www.vercel.com/",
-    "image": "/logos/img-4.jpeg"
+    "name": "Reposado Patrón",
+    "url": "https://www.patrontequila.com/global-es/products/patron-reposado.html",
+    "image": "/logos/tequila.png"
   }
 ]
